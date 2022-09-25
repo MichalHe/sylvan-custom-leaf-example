@@ -96,8 +96,7 @@ uint32_t register_custom_mtbdd_leaf() {
 }
 
 void init_sylvan() {
-    // lace_startup(0, NULL, NULL);  // This magic turns off multithreaded execution
-    lace_start(1, 0);
+    lace_start(1, 0);  // Start lace with 1 thread and <default> size of task queue
 	sylvan_set_limits(500LL*1024*1024, 3, 5); // Allocate 100MB
     sylvan_init_package();
     sylvan_init_mtbdd();
@@ -138,7 +137,6 @@ int main() {
     // Setup lace (work-stealing used by sylvan)
     unsigned int mtbdd_worker_count = 1;
     size_t task_deque_size = 0; // Use default task queue size 
-    // lace_start(mtbdd_worker_count, task_deque_size);
 
     uint32_t custom_mtbdd_leaf_type_id = register_custom_mtbdd_leaf();
     
